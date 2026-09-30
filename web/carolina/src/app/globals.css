@@ -1,0 +1,361 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Poemas y Reflexiones — Carolina Massa
+   Tokens y reglas globales (diseño: xscriptor design system)
+   ============================================================ */
+
+@font-face {
+  font-family: "EB Garamond";
+  src: url("/fonts/EBGaramond-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "EB Garamond";
+  src: url("/fonts/EBGaramond-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Great Vibes";
+  src: url("/fonts/GreatVibes-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Tokens: tema claro ---------- */
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --accent: #5b2e8d;
+  --accent-text: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --foreground: #171717;
+  --text-muted: #6b7280;
+  --primary: #4328a8;
+  --primary-hover: #7c3aed;
+  --success: #10b981;
+  --glass-bg: color-mix(in srgb, var(--bg) 70%, transparent);
+  --overlay-img: rgba(0, 0, 0, 0.45);
+  --neumorph-bg: #e9e9e9;
+}
+
+/* ---------- Tokens: tema oscuro ---------- */
+:root[data-theme="dark"],
+:root.dark {
+  --bg: #0a0a0a;
+  --text: #ffffff;
+  --accent: #ffe884;
+  --accent-text: #000000;
+  --border: rgba(255, 255, 255, 0.1);
+  --foreground: #ededed;
+  --text-muted: #9ca3af;
+  --primary: #fbbf24;
+  --primary-hover: #f59e0b;
+  --success: #34d399;
+  --glass-bg: color-mix(in srgb, var(--bg) 15%, transparent);
+  --overlay-img: rgba(0, 0, 0, 0.6);
+  --neumorph-bg: #16181d;
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-padding-top: 5rem;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  font-family: "EB Garamond", serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+/* ---------- Escala tipográfica global ---------- */
+h1 {
+  font-weight: 400;
+  font-size: clamp(16px, 12vw, 32px);
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  text-align: center;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: clamp(24px, 8vw, 26px);
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  text-align: center;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: clamp(20px, 9vw, 26px);
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  text-align: center;
+}
+
+p {
+  font-weight: 400;
+  font-size: clamp(18px, 2.5vw, 20px);
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  padding-left: clamp(1rem, 8vw, 4rem);
+  padding-right: clamp(1rem, 8vw, 4rem);
+  text-align: center;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Accesibilidad ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-to-content {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 10000;
+  background: var(--accent);
+  color: var(--accent-text);
+  padding: 0.6em 1.2em;
+  border-radius: 0.5rem;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 1rem;
+}
+
+/* ---------- Superficies ---------- */
+
+/* Chip marcador: el átomo de firma */
+.marker-chip {
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  padding: 0.1em 0.35em;
+  border-radius: 0.2em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Chip marcador oscuro (sobre imágenes claras) */
+.marker-chip-dark {
+  background: color-mix(in srgb, #000 55%, transparent);
+  color: #fff;
+  padding: 0.1em 0.35em;
+  border-radius: 0.2em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Vidrio */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+}
+
+/* ---------- Tipografía de artículo (prosa) ---------- */
+.article-content {
+  text-align: left;
+}
+
+.article-content p {
+  text-align: left;
+  padding: 0;
+  font-size: clamp(16px, 2vw, 18px);
+  line-height: 1.8;
+  margin: 1em 0;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  text-align: left;
+  margin: 1.4em 0 0.6em;
+}
+
+.article-content h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+  font-size: clamp(22px, 3vw, 26px);
+}
+
+.article-content h3 {
+  font-size: clamp(20px, 2.5vw, 22px);
+}
+
+.article-content ul,
+.article-content ol {
+  padding-left: 1.5rem;
+  font-size: clamp(16px, 2vw, 18px);
+  line-height: 1.8;
+}
+
+.article-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 1.2em 0;
+  padding: 0.3em 0 0.3em 1.2em;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.article-content blockquote p {
+  margin: 0;
+}
+
+.article-content code {
+  font-family: "Fira Code", "Monaco", monospace;
+  font-size: 0.85em;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+}
+
+.article-content pre {
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.9em;
+}
+
+.article-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.article-content img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  margin: 1.2em 0;
+}
+
+.article-content hr {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 2em 0;
+}
+
+.article-content a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article-content table {
+  border-collapse: collapse;
+  min-width: 600px;
+  font-size: 0.95em;
+}
+
+.article-content th,
+.article-content td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.8em;
+  text-align: left;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1.2em 0;
+}
+
+.article-content .katex {
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
+
+/* ---------- Animaciones ---------- */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Breakout full-bleed */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* ---------- Reducción de movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body.menu-open {
+  overflow: hidden;
+}
